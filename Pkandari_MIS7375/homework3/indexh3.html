@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+Program name: homework3.html
+Author: [Your Name]
+Date created: April 21, 2025
+Date last edited: April 21, 2025
+Version: 1.0
+Description: Patient Registration Form for HealthCare Medical Center
+-->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HEALTHCARE MEDICAL CENTER</title>
+        <link href="Homework3.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Header Banner -->
+        <header>
+            <div class="banner">
+                <div class="logo-container">
+                    <img src="./Logo.png" alt="Healthcare Medical Center Logo" style="width: 100px; height: auto;">
+                    <!-- Company name -->
+                    <svg width="400" height="100">
+                        <text x="50%" y="50%" font-family="Calibri, sans-serif" font-size="28" font-weight="bold" fill="#1a1a1a" text-anchor="middle" alignment-baseline="middle">
+                            HEALTHCARE MEDICAL CENTER
+                        </text>
+                    </svg>
+                    <link href="Homework3.css" rel="stylesheet">
+                </div>
+                <div id="currentDate"></div>
+                <script src="homework3.js"></script>
+            </div>
+        </header>
+
+        <!-- Main Form -->
+        <main>
+            <div class="form-container">
+                <h2>Patient Registration Form</h2>
+            
+                <form id="patientForm" onsubmit="handleSubmit(event);">
+                    <!-- Personal Information -->
+                    <section>
+                        <h3><i class="fas fa-user"></i> Personal Information</h3>
+                        <table>
+                            <tr>
+                                <td><label for="firstName">First Name:</label></td>
+                                <td>
+                                    <input type="text" id="firstName" name="firstName" maxlength="30" 
+                                           title="Enter your first name (letters, apostrophes, and dashes only)" 
+                                           onblur="validateName('firstName', 'firstNameError')" 
+                                           oninput="validateName('firstName', 'firstNameError')" required>
+                                    <span id="firstNameError" class="error-message"></span>
+                                </td>
+                                <td><label for="middleInitial">M.I.:</label></td>
+                                <td>
+                                    <input type="text" id="middleInitial" name="middleInitial" maxlength="1" 
+                                           title="Enter your middle initial (one letter only)" 
+                                           onblur="validateMiddleInitial('middleInitial', 'middleInitialError')">
+                                    <span id="middleInitialError" class="error-message"></span>
+                                </td>
+                                <td><label for="lastName">Last Name:</label></td>
+                                <td>
+                                    <input type="text" id="lastName" name="lastName" maxlength="30" 
+                                           title="Enter your last name (letters, apostrophes, and dashes only)" 
+                                           onblur="validateName('lastName', 'lastNameError')" 
+                                           oninput="validateName('lastName', 'lastNameError')" required>
+                                    <span id="lastNameError" class="error-message"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <td><label for="dob">Date of Birth:</label></td>
+                                <td>
+                                    <input type="date" id="dob" name="dob" required 
+                                           title="Enter your date of birth (cannot be in the future or more than 120 years ago)" 
+                                           onchange="validateDob()">
+                                    <span id="dobError" class="error-message"></span>
+                                </td>
+                                <td><label for="ssn">Social Security Number:</label></td>
+                                <td>
+                                    <input type="password" id="ssn" name="ssn" 
+                                           placeholder="XXX-XX-XXXX" required 
+                                           title="Enter your 9-digit SSN in format XXX-XX-XXXX" 
+                                           oninput="formatSSN(this)" 
+                                           onblur="validateSSN()">
+                                    <span id="ssnError" class="error-message"></span>
+                                </td>
+                                <td><label for="gender">Gender:</label></td>
+                                <td>
+                                    <select id="gender" name="gender" required 
+                                            title="Select your gender" 
+                                            onchange="validateDropdown('gender', 'genderError')">
+                                        <option value="">Select Gender</option>
+                                    </select>
+                                    <span id="genderError" class="error-message"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+
+                    <!-- Contact Information -->
+                    <section>
+                        <h3><i class="fas fa-address-book"></i> Contact Information</h3>
+                        <table>
+                            <tr>
+                                <td><label for="address1">Address Line 1:</label></td>
+                                <td colspan="3">
+                                    <input type="text" id="address1" name="address1" maxlength="30" required 
+                                           title="Enter your address (2-30 characters)" 
+                                           onblur="validateAddress('address1', 'address1Error')">
+                                    <span id="address1Error" class="error-message"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="address2">Address Line 2:</label></td>
+                                <td colspan="3">
+                                    <input type="text" id="address2" name="address2" maxlength="30" 
+                                           title="Optional: Enter additional address information (2-30 characters if provided)" 
+                                           onblur="validateOptionalAddress('address2', 'address2Error')">
+                                    <span id="address2Error" class="error-message"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="city">City:</label></td>
+                                <td>
+                                    <input type="text" id="city" name="city" maxlength="30" required 
+                                           title="Enter your city (2-30 characters)" 
+                                           onblur="validateCity()">
+                                    <span id="cityError" class="error-message"></span>
+                                </td>
+                                <td><label for="country">Country:</label></td>
+                                <td>
+                                    <select id="country" name="country" required 
+                                            title="Select your country" 
+                                            onchange="updateStates(); validateDropdown('country', 'countryError')">
+                                        <option value="">Select Country</option>
+                                    </select>
+                                    <span id="countryError" class="error-message"></span>
+                                </td>
+                                <td><label for="state">State:</label></td>
+                                <td>
+                                    <select id="state" name="state" required 
+                                            title="Select your state/province" 
+                                            onchange="validateDropdown('state', 'stateError')">
+                                        <option value="">Select State</option>
+                                    </select>
+                                    <span id="stateError" class="error-message"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="zip">ZIP Code:</label></td>
+                                <td>
+                                    <input type="text" id="zip" name="zip" 
+                                           placeholder="12345" required 
+                                           title="Enter your ZIP code (5 digits, or 5 digits followed by a dash and 4 digits)" 
+                                           onblur="validateZip()" 
+                                           oninput="validateZip()">
+                                    <span id="zipError" class="error-message"></span>
+                                </td>
+                                <td><label for="phone">Phone:</label></td>
+                                <td>
+                                    <input type="tel" id="phone" name="phone" 
+                                           placeholder="123-456-7890" required 
+                                           title="Enter your phone number in format 123-456-7890" 
+                                           oninput="formatPhoneNumber(this)" 
+                                           onblur="validatePhone()">
+                                    <span id="phoneError" class="error-message"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="email">Email:</label></td>
+                                <td colspan="3">
+                                    <input type="email" id="email" name="email" required 
+                                           title="Enter your email address in format name@domain.tld" 
+                                           onblur="validateEmail()">
+                                    <span id="emailError" class="error-message"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+
+                    <!-- Medical History -->
+                    <section>
+                        <h3><i class="fas fa-notes-medical"></i> Medical History</h3>
+                        <div class="medical-conditions">
+                            <p>Check all conditions that apply:</p>
+                            <div class="checkbox-grid">
+                                <label><input type="checkbox" name="conditions" value="diabetes" onclick="validateConditions()"> Diabetes</label>
+                                <label><input type="checkbox" name="conditions" value="hypertension" onclick="validateConditions()"> Hypertension</label>
+                                <label><input type="checkbox" name="conditions" value="asthma" onclick="validateConditions()"> Asthma</label>
+                                <label><input type="checkbox" name="conditions" value="heartDisease" onclick="validateConditions()"> Heart Disease</label>
+                                <label><input type="checkbox" name="conditions" value="arthritis" onclick="validateConditions()"> Arthritis</label>
+                                <label><input type="checkbox" name="conditions" value="cancer" onclick="validateConditions()"> Cancer</label>
+                                <label><input type="checkbox" name="conditions" value="depression" onclick="validateConditions()"> Depression/Anxiety</label>
+                                <label><input type="checkbox" name="conditions" value="thyroid" onclick="validateConditions()"> Thyroid Disorder</label>
+                                <label><input type="checkbox" name="conditions" value="covid" onclick="validateConditions()"> Covid</label>
+                                <label><input type="checkbox" name="conditions" value="general" onclick="validateConditions()"> General Checkup</label>
+                                <label><input type="checkbox" name="conditions" value="other" onclick="validateConditions()"> Other</label>
+                            </div>
+                            <span id="conditionsError" class="error-message"></span>
+                        </div>
+
+                        <div class="vaccinated-status">
+                            <p>Vaccinated Status:</p>
+                            <label><input type="radio" name="vaccinated" value="vaccinated" required onclick="validateRadio('vaccinated', 'vaccinatedError')"> Yes</label>
+                            <label><input type="radio" name="vaccinated" value="unvaccinated" required onclick="validateRadio('vaccinated', 'vaccinatedError')"> No</label>
+                            <span id="vaccinatedError" class="error-message"></span>
+                        </div>
+
+                        <div class="insurance-status">
+                            <p>Insurance Status:</p>
+                            <label><input type="radio" name="insurance" value="insured" required onclick="validateRadio('insurance', 'insuranceError')"> Yes</label>
+                            <label><input type="radio" name="insurance" value="uninsured" required onclick="validateRadio('insurance', 'insuranceError')"> No</label>
+                            <span id="insuranceError" class="error-message"></span>
+                        </div>
+
+                        <div class="health-rating">
+                            <p>Current Pain Level (1-10):</p>
+                            <input type="range" id="healthRating" name="healthRating" min="1" max="10" value="5" oninput="updateRatingValue()">
+                            <span id="ratingValue">5</span>
+                        </div>
+
+                        <div class="symptoms">
+                            <label for="symptoms">Current Symptoms or Concerns:</label>
+                            <textarea id="symptoms" name="symptoms" rows="3" cols="50" 
+                                     placeholder="Please describe any current symptoms or health concerns..." 
+                                     required onblur="validateSymptoms()"></textarea>
+                            <span id="symptomsError" class="error-message"></span>
+                        </div>
+                    </section>
+
+                    <!-- Account Information -->
+                    <section>
+                        <h3><i class="fas fa-user-lock"></i> Account Information</h3>
+                        <table>
+                            <tr>
+                                <td><label for="userId">Username:</label></td>
+                                <td>
+                                    <input type="text" id="userId" name="userId" maxlength="20" required 
+                                           title="Username must be 5-20 characters, start with a letter, and contain only letters, numbers, dashes, and underscores" 
+                                           onblur="validateUserId()" 
+                                           oninput="validateUserId()">
+                                    <span id="userIdError" class="error-message"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="password">Password:</label></td>
+                                <td>
+                                    <input type="password" id="password" name="password" required 
+                                           title="Password must be at least 8 characters with at least 1 uppercase letter, 1 lowercase letter, and 1 number" 
+                                           onblur="validatePassword()" 
+                                           oninput="validatePassword()">
+                                    <span id="passwordError" class="error-message"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="confirmPassword">Confirm Password:</label></td>
+                                <td>
+                                    <input type="password" id="confirmPassword" name="confirmPassword" required 
+                                           title="Enter the same password again" 
+                                           onblur="validatePasswordMatch()" 
+                                           oninput="validatePasswordMatch()">
+                                    <span id="confirmPasswordError" class="error-message"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" onclick="reviewForm()" class="btn-primary">Review</button>
+                        <button type="button" id="validateBtn" onclick="validateForm()" class="btn-primary">Validate</button>
+                        <button type="button" id="submitBtn" onclick="submitForm()" class="btn-primary" style="display: none;">Submit</button>
+                        <button type="reset" class="btn-secondary" onclick="clearAllErrors()">Clear Form</button>
+                    </div>
+                </form>
+                
+                <!-- Review Section (inline) -->
+                <div id="reviewSection" style="display: none; margin-top: 20px;">
+                    <div style="background-color: #3498db; color: white; padding: 10px;">
+                        <h3 style="margin: 0;">Review Information</h3>
+                    </div>
+                    <div id="reviewContent"></div>
+                </div>
+            </div>
+            <script src="homework3.js"></script>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="company-info">
+                    <p class="company-name">HEALTHCARE MEDICAL CENTER</p>
+                    <p>357 Medical Center Drive</p>
+                    <p>Houston, TX 77001</p>
+                </div>
+                <div class="footer-links">
+                    <button onclick="alert('Contact page coming soon!')">Contact Us</button>
+                    <button onclick="alert('Privacy Policy page coming soon!')">Privacy Policy</button>
+                    <button onclick="alert('Terms of Service page coming soon!')">Terms of Service</button>
+                </div>
+            </div>
+        </footer>
+        
+        <script src="homework3.js"></script>
+    </body>
+</html>
