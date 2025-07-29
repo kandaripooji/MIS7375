@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+Program name: extracredit.html
+Date created: May 7, 2025
+Date last edited: May 7, 2025
+Version: 1.0
+Description: Enhanced Patient Registration Form for HealthCare Medical Center
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALTHCARE MEDICAL CENTER - ENHANCED REGISTRATION</title>
+    <link href="extracredit.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+<body>
+    <!-- Header Banner -->
+    <header>
+         <div class="banner">
+        <div class="logo-container">
+            <img src="./Logo.png" alt="Healthcare Medical Center Logo" style="width: 100px; height: auto;">
+            <!-- Company name -->
+            <svg width="400" height="100">
+                <text x="50%" y="50%" font-family="Calibri, sans-serif" font-size="28" font-weight="bold" fill="#1a1a1a" text-anchor="middle" alignment-baseline="middle">
+                    HEALTHCARE MEDICAL CENTER
+                </text>
+            </svg>
+        </div>
+
+            <!-- Welcome Info Section -->
+            <div class="date-welcome-container">
+                <div id="welcomeMessage" class="welcome-message">Welcome New User</div>
+                <div id="currentDate"></div>
+                <div id="notYouContainer" class="not-you" style="display: none;">
+                    <input type="checkbox" id="notYouCheckbox">
+                    <label for="notYouCheckbox">Not <span id="savedUserName"></span>? Start as new user</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Type Selection Popup -->
+        <div id="userTypePopup" class="popup-overlay">
+            <div class="popup-box">
+                <h2>Welcome to Healthcare Medical Center</h2>
+                <p>Are you a new or returning user?</p>
+                <button id="newUserBtn" class="primary">New User</button>
+                <button id="existingUserBtn" class="secondary">Existing User</button>
+            </div>
+        </div>
+
+        <!-- Cookie Consent Popup -->
+        <div id="cookieConsentPopup" class="popup-overlay" style="display:none;">
+            <div class="popup-box">
+                <p>This site uses cookies to remember your name for 48 hours. Do you accept?</p>
+                <button id="acceptCookiesBtn" class="primary">Accept Cookies</button>
+                <button id="declineCookiesBtn" class="secondary">Decline</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Form -->
+    <main>
+        <div class="form-container">
+            <div class="info-section">
+                <h2>Welcome to Healthcare Medical Center</h2>
+                <div class="info-grid">
+                    <div class="info-content">
+                        <div class="hospital-intro">
+                            <h3><i class="fas fa-heartbeat"></i> Your Health Is Our Priority</h3>
+                            <p>
+                                Healthcare Medical Center is a leading healthcare provider in Houston, offering comprehensive medical services with state-of-the-art technology and compassionate care. Our facility features:
+                            </p>
+                            <ul class="hospital-features">
+                                <li>Level I Trauma Center</li>
+                                <li>24/7 Emergency Care</li>
+                                <li>Advanced Surgical Services</li>
+                                <li>Comprehensive Cancer Center</li>
+                                <li>Women's Health Services</li>
+                                <li>Cardiovascular Institute</li>
+                            </ul>
+                        </div>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h3><i class="fas fa-microscope"></i> Advanced Technology</h3>
+                                <p>Latest medical equipment and innovative treatments</p>
+                            </div>
+                            <div class="feature">
+                                <h3><i class="fas fa-user-md"></i> Expert Physicians</h3>
+                                <p>Board-certified specialists in multiple fields</p>
+                            </div>
+                            <div class="feature">
+                                <h3><i class="fas fa-hand-holding-heart"></i> Patient-Centered Care</h3>
+                                <p>Personalized treatment plans for optimal outcomes</p>
+                            </div>
+                            <div class="feature">
+                                <h3><i class="fas fa-graduation-cap"></i> Research & Education</h3>
+                                <p>Leading medical research and training programs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hospital-media">
+                        <div class="virtual-tour">
+                            <h3><i class="fas fa-map-marked-alt"></i> Virtual Tour</h3>
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3465.459457756402!2d-95.3997!3d29.7101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDQyJzM2LjQiTiA5NcKwMjMnNTkuNCJX!5e0!3m2!1sen!2sus!4v1620151692799!5m2!1sen!2sus"
+                                class="map-iframe"
+                                allowfullscreen=""
+                                loading="lazy"
+                            ></iframe>
+                        </div>
+                        <div class="contact-info">
+                            <h3><i class="fas fa-phone-alt"></i> Contact & Location</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> 357 Medical Center Drive</p>
+                            <p>Houston, TX 77001</p>
+                            <p><i class="fas fa-phone"></i> Main: (713) 555-0123</p>
+                            <p><i class="fas fa-ambulance"></i> Emergency: (713) 555-0911</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2>Patient Registration Form</h2>
+        
+            <form id="patientForm">
+                <!-- Personal Information -->
+                <section>
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    <table>
+                        <tr>
+                            <td><label for="firstName">First Name:</label></td>
+                            <td>
+                                <input type="text" id="firstName" name="firstName" maxlength="30" 
+                                       title="Enter your first name (letters, apostrophes, and dashes only)" required>
+                                <span id="firstNameError" class="error-message"></span>
+                            </td>
+                            <td><label for="middleInitial">M.I.:</label></td>
+                            <td>
+                                <input type="text" id="middleInitial" name="middleInitial" maxlength="1" 
+                                       title="Enter your middle initial (one letter only)">
+                                <span id="middleInitialError" class="error-message"></span>
+                            </td>
+                            <td><label for="lastName">Last Name:</label></td>
+                            <td>
+                                <input type="text" id="lastName" name="lastName" maxlength="30" 
+                                       title="Enter your last name (letters, apostrophes, and dashes only)" required>
+                                <span id="lastNameError" class="error-message"></span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td><label for="dob">Date of Birth:</label></td>
+                            <td>
+                                <input type="date" id="dob" name="dob" required 
+                                       title="Enter your date of birth (cannot be in the future or more than 120 years ago)">
+                                <span id="dobError" class="error-message"></span>
+                            </td>
+                            <td><label for="ssn">Social Security Number:</label></td>
+                            <td>
+                                <input type="password" id="ssn" name="ssn" 
+                                       placeholder="XXX-XX-XXXX" required 
+                                       title="Enter your 9-digit SSN in format XXX-XX-XXXX">
+                                <span id="ssnError" class="error-message"></span>
+                            </td>
+                            <td><label for="gender">Gender:</label></td>
+                            <td>
+                                <select id="gender" name="gender" required 
+                                        title="Select your gender">
+                                    <option value="">Select Gender</option>
+                                </select>
+                                <span id="genderError" class="error-message"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- Contact Information -->
+                <section>
+                    <h3><i class="fas fa-address-book"></i> Contact Information</h3>
+                    <table>
+                        <tr>
+                            <td><label for="address1">Address Line 1:</label></td>
+                            <td colspan="3">
+                                <input type="text" id="address1" name="address1" maxlength="30" required 
+                                       title="Enter your address (2-30 characters)">
+                                <span id="address1Error" class="error-message"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="address2">Address Line 2:</label></td>
+                            <td colspan="3">
+                                <input type="text" id="address2" name="address2" maxlength="30" 
+                                       title="Optional: Enter additional address information (2-30 characters if provided)">
+                                <span id="address2Error" class="error-message"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="city">City:</label></td>
+                            <td>
+                                <input type="text" id="city" name="city" maxlength="30" required 
+                                       title="Enter your city (2-30 characters)">
+                                <span id="cityError" class="error-message"></span>
+                            </td>
+                            <td><label for="country">Country:</label></td>
+                            <td>
+                                <select id="country" name="country" required 
+                                        title="Select your country">
+                                    <option value="">Select Country</option>
+                                </select>
+                                <span id="countryError" class="error-message"></span>
+                            </td>
+                            <td><label for="state">State:</label></td>
+                            <td>
+                                <select id="state" name="state" required 
+                                        title="Select your state/province">
+                                    <option value="">Select State</option>
+                                </select>
+                                <span id="stateError" class="error-message"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="zip">ZIP Code:</label></td>
+                            <td>
+                                <input type="text" id="zip" name="zip" 
+                                       placeholder="12345" required 
+                                       title="Enter your ZIP code (5 digits, or 5 digits followed by a dash and 4 digits)">
+                                <span id="zipError" class="error-message"></span>
+                            </td>
+                            <td><label for="phone">Phone:</label></td>
+                            <td>
+                                <input type="tel" id="phone" name="phone" 
+                                       placeholder="123-456-7890" required 
+                                       title="Enter your phone number in format 123-456-7890">
+                                <span id="phoneError" class="error-message"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Email:</label></td>
+                            <td colspan="3">
+                                <input type="email" id="email" name="email" required 
+                                       title="Enter your email address in format name@domain.tld">
+                                <span id="emailError" class="error-message"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- Medical History -->
+                <section>
+                    <h3><i class="fas fa-notes-medical"></i> Medical History</h3>
+                    <div class="medical-conditions">
+                        <p>Check all conditions that apply:</p>
+                        <div class="checkbox-grid">
+                            <label><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
+                            <label><input type="checkbox" name="conditions" value="hypertension"> Hypertension</label>
+                            <label><input type="checkbox" name="conditions" value="asthma"> Asthma</label>
+                            <label><input type="checkbox" name="conditions" value="heartDisease"> Heart Disease</label>
+                            <label><input type="checkbox" name="conditions" value="arthritis"> Arthritis</label>
+                            <label><input type="checkbox" name="conditions" value="cancer"> Cancer</label>
+                            <label><input type="checkbox" name="conditions" value="depression"> Depression/Anxiety</label>
+                            <label><input type="checkbox" name="conditions" value="thyroid"> Thyroid Disorder</label>
+                            <label><input type="checkbox" name="conditions" value="covid"> Covid</label>
+                            <label><input type="checkbox" name="conditions" value="general"> General Checkup</label>
+                            <label><input type="checkbox" name="conditions" value="other"> Other</label>
+                        </div>
+                        <span id="conditionsError" class="error-message"></span>
+                    </div>
+
+                    <div class="vaccinated-status">
+                        <p>Vaccinated Status:</p>
+                        <label><input type="radio" name="vaccinated" value="vaccinated" required> Yes</label>
+                        <label><input type="radio" name="vaccinated" value="unvaccinated" required> No</label>
+                        <span id="vaccinatedError" class="error-message"></span>
+                    </div>
+
+                    <div class="insurance-status">
+                        <p>Insurance Status:</p>
+                        <label><input type="radio" name="insurance" value="insured" required> Yes</label>
+                        <label><input type="radio" name="insurance" value="uninsured" required> No</label>
+                        <span id="insuranceError" class="error-message"></span>
+                    </div>
+
+                    <div class="health-rating">
+                        <p>Current Pain Level (1-10):</p>
+                        <input type="range" id="healthRating" name="healthRating" min="1" max="10" value="5">
+                        <span id="ratingValue">5</span>
+                    </div>
+
+                    <div class="symptoms">
+                        <label for="symptoms">Current Symptoms or Concerns:</label>
+                        <textarea id="symptoms" name="symptoms" rows="3" cols="50" 
+                                 placeholder="Please describe any current symptoms or health concerns..." 
+                                 required></textarea>
+                        <span id="symptomsError" class="error-message"></span>
+                    </div>
+                </section>
+
+                <!-- Account Information -->
+                <section>
+                    <h3><i class="fas fa-user-lock"></i> Account Information</h3>
+                    <table>
+                        <tr>
+                            <td><label for="userId">Username:</label></td>
+                            <td>
+                                <input type="text" id="userId" name="userId" maxlength="20" required 
+                                       title="Username must be 5-20 characters, start with a letter, and contain only letters, numbers, dashes, and underscores">
+                                <span id="userIdError" class="error-message"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="password">Password:</label></td>
+                            <td>
+                                <input type="password" id="password" name="password" required 
+                                       title="Password must be at least 8 characters with at least 1 uppercase letter, 1 lowercase letter, and 1 number">
+                                <span id="passwordError" class="error-message"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="confirmPassword">Confirm Password:</label></td>
+                            <td>
+                                <input type="password" id="confirmPassword" name="confirmPassword" required 
+                                       title="Enter the same password again">
+                                <span id="confirmPasswordError" class="error-message"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- Remember Me Checkbox -->
+                <label>
+                    <input type="checkbox" id="rememberMe" checked />
+                    Remember me (stores your name for 48 hours)
+                </label>
+
+                <div class="g-recaptcha" data-sitekey="6Le6OTIrAAAAAARZKR_doTE6aViJA-QVkg9uSDva"></div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" id="reviewBtn" class="btn-primary"><i class="fas fa-search"></i> Review</button>
+                    <button type="button" id="validateBtn" class="btn-primary"><i class="fas fa-check-circle"></i> Validate</button>
+                    <button type="button" id="submitBtn" class="btn-primary" style="display: none;"><i class="fas fa-paper-plane"></i> Submit</button>
+                    <button type="reset" id="clearBtn" class="btn-secondary"><i class="fas fa-trash-alt"></i> Clear Form</button>
+                </div>
+
+            </form>
+            
+            <!-- Review Section (inline) -->
+            <div id="reviewSection" style="display: none; margin-top: 20px;">
+                <div style="background-color: #3498db; color: white; padding: 10px;">
+                    <h3 style="margin: 0;"><i class="fas fa-clipboard-list"></i> Review Information</h3>
+                </div>
+                <div id="reviewContent"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="company-info">
+                <p class="company-name">HEALTHCARE MEDICAL CENTER</p>
+                <p><i class="fas fa-map-marker-alt"></i> 357 Medical Center Drive</p>
+                <p>Houston, TX 77001</p>
+            </div>
+            <div class="footer-links">
+                <button><i class="fas fa-envelope"></i> Contact Us</button>
+                <button><i class="fas fa-shield-alt"></i> Privacy Policy</button>
+                <button><i class="fas fa-file-contract"></i> Terms of Service</button>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script src="extracredit.js"></script>
+</body>
+</html>

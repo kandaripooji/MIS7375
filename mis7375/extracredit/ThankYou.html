@@ -1,0 +1,68 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Healthcare Medical Center</title>
+    <link href="extracredit.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Banner -->
+    <header>
+            <div class="banner">
+                <div class="logo-container">
+                    <img src="./Logo.png" alt="Healthcare Medical Center Logo" style="width: 100px; height: auto;">
+                        <!-- Company name -->
+                    <svg width="400" height="100">
+                        <text x="50%" y="50%" font-family="Calibri, sans-serif" font-size="28" font-weight="bold" fill="#1a1a1a" text-anchor="middle" alignment-baseline="middle">
+                            HEALTHCARE MEDICAL CENTER
+                        </text>
+                    </svg>
+                    <link href="extracredit.css" rel="stylesheet">
+                </div>
+                <div id="currentDate"></div>
+            </div>
+        </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="form-container thank-you-container">
+            <h2 class="thank-you-heading">Thank You for Your Registration</h2>
+            <p class="thank-you-message">Your information has been successfully submitted.</p>
+            <button onclick="window.location.href='extracredit.html'" class="btn-primary">
+                Return to Home
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="company-info">
+                <p class="company-name">HEALTHCARE MEDICAL CENTER</p>
+                <p>357 Medical Center Drive</p>
+                <p>Houston, TX 77001</p>
+            </div>
+            <div class="footer-links">
+                <button onclick="alert('Contact page coming soon!')">Contact Us</button>
+                <button onclick="alert('Privacy Policy page coming soon!')">Privacy Policy</button>
+                <button onclick="alert('Terms of Service page coming soon!')">Terms of Service</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update current date in header
+        document.addEventListener('DOMContentLoaded', function() {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const currentDate = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('currentDate').textContent = currentDate;
+        });
+    </script>
+</body>
+</html>
